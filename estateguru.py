@@ -58,5 +58,7 @@ def get_events():
     return events
 
 events = get_events()
-for event in events:
-    print(process_event(event))
+processed_events = list(map(process_event, events))
+
+for event in processed_events:
+    print(event)
