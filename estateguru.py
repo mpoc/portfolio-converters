@@ -47,11 +47,11 @@ for event in events:
     raw_currency = event['Valiuta']
     raw_type = event['Pinigų srauto tipas']
 
-    date = parse_date(raw_date)
-    type = parse_type(raw_type)
-    name = parse_name(raw_name, type)
-    amount = raw_amount
-    currency = raw_currency
-    platform = 'EstateGuru'
+    inv_date = parse_date(raw_date)
+    inv_type = parse_type(raw_type)
+    inv_name = parse_name(raw_name, inv_type)
+    inv_amount = raw_amount
+    inv_currency = raw_currency
+    inv_platform = 'EstateGuru'
 
-    print(date + delim + name + delim + amount + delim + currency + delim + type + delim + platform)
+    print(inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform)
