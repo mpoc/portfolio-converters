@@ -1,6 +1,5 @@
 import sys
 import csv
-import re
 import datetime
 
 csv_file = sys.argv[1]
