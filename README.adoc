@@ -1,0 +1,18 @@
+= Portfolio parsers
+:experimental:
+
+== EstateGuru
+
+. Go to https://estateguru.co/portal/portfolio/account and download as CSV
+. Run `python3 estateguru.py [FILE]`
+
+== EvoEstate
+
+. Go to https://evoestate.com/transactions/ and click btn:[Download csv file]
+. Run `python3 evoestate.py [FILE]`
+
+== Paskolų klubas
+
+. Go to https://www.paskoluklubas.lt/user/account/overview?filter%5BdateRange%5D%5Bpreset%5D=PRESET_ALL
+. Run `paskoluklubas-snippet.js` in the browser console
+. Run `python3 paskoluklubas.py`, paste, hit kbd:[Ctrl+D]
