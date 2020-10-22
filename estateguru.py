@@ -26,17 +26,7 @@ def parse_type(raw_type):
 def parse_name(raw_name, inv_type):
     return 'Deposit' if inv_type == 'Deposit' else raw_name
 
-csv_file = sys.argv[1]
-
-events = []
-with open(csv_file, newline='') as csvfile:
-    reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
-    for row in reader:
-        events.append(row)
-
-events = events[:-2]
-
-for event in events:
+def process_event(event):
     delim = ';'
 
     raw_date = event['Patvirtinimo data']
@@ -52,4 +42,17 @@ for event in events:
     inv_currency = raw_currency
     inv_platform = 'EstateGuru'
 
-    print(inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform)
+    return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
+
+csv_file = sys.argv[1]
+
+events = []
+with open(csv_file, newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
+    for row in reader:
+        events.append(row)
+
+events = events[:-2]
+
+for event in events:
+    print(process_event(event))

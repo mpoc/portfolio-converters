@@ -29,15 +29,7 @@ def parse_name(raw_name, inv_type):
 def parse_amount(raw_amount, inv_type):
     return "-" + raw_amount[2:] if inv_type == 'Investment' else raw_amount[2:]
 
-csv_file = sys.argv[1]
-
-events = []
-with open(csv_file, newline='') as csvfile:
-    reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-    for row in reader:
-        events.append(row)
-
-for event in events:
+def process_event(event):
     delim = ';'
 
     raw_date = event['Date']
@@ -52,4 +44,15 @@ for event in events:
     inv_currency = 'EUR'
     inv_platform = 'EvoEstate'
 
-    print(inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform)
+    return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
+
+csv_file = sys.argv[1]
+
+events = []
+with open(csv_file, newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
+    for row in reader:
+        events.append(row)
+
+for event in events:
+    print(process_event(event))

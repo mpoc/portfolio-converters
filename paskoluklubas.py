@@ -38,11 +38,7 @@ def parse_amount(raw_debit, raw_credit):
         print("Could not parse amount (debit: " + raw_debit + "credit: " + raw_credit + ")")
         sys.exit()
 
-print("Paste your PK events and hit Ctrl-D:")
-events_raw = sys.stdin.read()
-events = json.loads(events_raw)
-
-for event in events:
+def process_event(event):
     delim = ';'
 
     raw_date = event['date']
@@ -57,4 +53,11 @@ for event in events:
     inv_currency = 'EUR'
     inv_platform = 'Paskolų klubas'
 
-    print(inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform)
+    return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
+
+print("Paste your PK events and hit Ctrl-D:")
+events_raw = sys.stdin.read()
+events = json.loads(events_raw)
+
+for event in events:
+    print(process_event(event))
