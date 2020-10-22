@@ -44,7 +44,15 @@ def process_event(event):
     inv_currency = 'EUR'
     inv_platform = 'EvoEstate'
 
-    return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
+    inv_details = [
+        inv_date,
+        inv_name,
+        inv_amount,
+        inv_currency,
+        inv_type,
+        inv_platform
+    ]
+    return delim.join(inv_details)
 
 def get_events():
     csv_file = sys.argv[1]

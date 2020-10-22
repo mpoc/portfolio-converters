@@ -53,7 +53,15 @@ def process_event(event):
     inv_currency = 'EUR'
     inv_platform = 'Paskolų klubas'
 
-    return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
+    inv_details = [
+        inv_date,
+        inv_name,
+        inv_amount,
+        inv_currency,
+        inv_type,
+        inv_platform
+    ]
+    return delim.join(inv_details)
 
 def get_events():
     print("Paste your PK events and hit Ctrl-D:")
