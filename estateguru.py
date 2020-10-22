@@ -1,6 +1,6 @@
 import sys
 import csv
-import re
+import datetime
 
 csv_file = sys.argv[1]
 
@@ -13,14 +13,12 @@ with open(csv_file, newline='') as csvfile:
 events = events[:-2]
 
 def parse_date(date):
-    date_regex = r"^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}:\d{2})$"
-    p = re.compile(date_regex)
-    m = p.match(date)
-    if (m == None):
-        print('Could not match date ' + date)
+    try:
+        date_time_obj = datetime.datetime.strptime(date, '%d/%m/%Y %H:%M')
+        return str(date_time_obj)
+    except Exception as e:
+        print('Could not parse date ' + date)
         return sys.exit()
-    else:
-        return m.group(3) + '-' + m.group(2) + '-' + m.group(1) + ' ' + m.group(4)
 
 def parse_type(raw_type):
     type_dict = {
