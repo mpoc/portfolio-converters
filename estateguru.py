@@ -35,8 +35,8 @@ def parse_type(raw_type):
         print('Could not map type ' + raw_type)
         return sys.exit()
 
-def parse_name(raw_name, type):
-    return 'Deposit' if type == 'Deposit' else raw_name
+def parse_name(raw_name, inv_type):
+    return 'Deposit' if inv_type == 'Deposit' else raw_name
 
 for event in events:
     delim = ';'
