@@ -7,6 +7,14 @@ print("Paste your PK events and hit Ctrl-D:")
 events_raw = sys.stdin.read()
 events = json.loads(events_raw)
 
+def parse_date(date):
+    try:
+        date_time_obj = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
+        return str(date_time_obj)
+    except Exception as e:
+        print('Could not parse date ' + date)
+        return sys.exit()
+
 def parse_type(raw_type):
     type_dict = {
         r"^Investicija į kreditą „[A-Z0-9]+“$": 'Investment',
@@ -42,7 +50,7 @@ for event in events:
     raw_debit = event['debit']
     raw_credit = event['credit']
 
-    inv_date = raw_date
+    inv_date = parse_date(raw_date)
     inv_type = parse_type(raw_name)
     inv_name = raw_name
     inv_amount = parse_amount(raw_debit, raw_credit)
