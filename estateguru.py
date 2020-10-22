@@ -6,7 +6,7 @@ csv_file = sys.argv[1]
 
 events = []
 with open(csv_file, newline='') as csvfile:
-    reader = csv.DictReader(csvfile)
+    reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
     for row in reader:
         events.append(row)
 
