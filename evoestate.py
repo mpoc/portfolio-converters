@@ -46,13 +46,17 @@ def process_event(event):
 
     return inv_date + delim + inv_name + delim + inv_amount + delim + inv_currency + delim + inv_type + delim + inv_platform
 
-csv_file = sys.argv[1]
+def get_events():
+    csv_file = sys.argv[1]
 
-events = []
-with open(csv_file, newline='') as csvfile:
-    reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-    for row in reader:
-        events.append(row)
+    events = []
+    with open(csv_file, newline='') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
+        for row in reader:
+            events.append(row)
 
+    return events
+
+events = get_events()
 for event in events:
     print(process_event(event))
