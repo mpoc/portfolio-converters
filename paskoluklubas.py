@@ -3,10 +3,6 @@ import datetime
 import json
 import re
 
-print("Paste your PK events and hit Ctrl-D:")
-events_raw = sys.stdin.read()
-events = json.loads(events_raw)
-
 def parse_date(date):
     try:
         date_time_obj = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
@@ -41,6 +37,10 @@ def parse_amount(raw_debit, raw_credit):
     else:
         print("Could not parse amount (debit: " + raw_debit + "credit: " + raw_credit + ")")
         sys.exit()
+
+print("Paste your PK events and hit Ctrl-D:")
+events_raw = sys.stdin.read()
+events = json.loads(events_raw)
 
 for event in events:
     delim = ';'

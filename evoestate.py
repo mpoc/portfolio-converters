@@ -2,14 +2,6 @@ import sys
 import csv
 import datetime
 
-csv_file = sys.argv[1]
-
-events = []
-with open(csv_file, newline='') as csvfile:
-    reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-    for row in reader:
-        events.append(row)
-
 def parse_date(date):
     try:
         date_time_obj = datetime.datetime.strptime(date, '%d %b %y, %H:%M')
@@ -36,6 +28,14 @@ def parse_name(raw_name, inv_type):
 
 def parse_amount(raw_amount, inv_type):
     return "-" + raw_amount[2:] if inv_type == 'Investment' else raw_amount[2:]
+
+csv_file = sys.argv[1]
+
+events = []
+with open(csv_file, newline='') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
+    for row in reader:
+        events.append(row)
 
 for event in events:
     delim = ';'
