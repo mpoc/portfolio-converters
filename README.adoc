@@ -8,7 +8,7 @@
 
 == EvoEstate
 
-. Go to https://evoestate.com/transactions/ and click btn:[Download csv file]
+. Go to https://evoestate.com/transactions/, select the desired time period and click btn:[Download csv file]
 . Run `python3 evoestate.py [FILE]`
 
 == Paskolų klubas
