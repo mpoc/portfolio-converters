@@ -14,7 +14,8 @@ def parse_type(raw_type):
     type_dict = {
         'Investment': 'Investment',
         'Wallet deposit': 'Deposit',
-        'Affiliate earnings': 'Affiliate earnings'
+        'Affiliate earnings': 'Affiliate earnings',
+        'Interest received': 'Interest'
     }
 
     if raw_type in type_dict:
