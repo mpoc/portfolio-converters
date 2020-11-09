@@ -18,7 +18,8 @@ def parse_type(raw_type):
         r"^Investicijos [A-Z0-9]+ kredito dalies grąžinimas$": 'Loan return',
         r"^Investicijos [A-Z0-9]+ palūkanų grąžinimas$": 'Interest',
         r"^Investicijos [A-Z0-9]+ grąžinimas atsisakius vartojimo paskolos$": 'Loan decline',
-        r"^Gautas pavedimas \"[A-Z0-9]+\" iš vartotojo \"\"NEO Finance\", AB\"$": 'Affiliate earnings'
+        r"^Gautas pavedimas \"[A-Z0-9]+\" iš vartotojo \"\"NEO Finance\", AB\"$": 'Affiliate earnings',
+        r"^Užtikrinimo fondo mokestis už investiciją į kreditą „[A-Z0-9]+“$": 'Buyback guarantee'
     }
 
     for regex in type_dict:
