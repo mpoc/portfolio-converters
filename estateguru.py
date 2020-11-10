@@ -14,7 +14,8 @@ def parse_type(raw_type):
     type_dict = {
         'Investicija': 'Investment',
         'Indėlis(Lemonway)': 'Deposit',
-        'Partnerystė': 'Affiliate earnings'
+        'Partnerystė': 'Affiliate earnings',
+        'Palūkanos': 'Interest'
     }
 
     if raw_type in type_dict:
