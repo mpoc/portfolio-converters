@@ -19,7 +19,7 @@ def parse_type(raw_type, raw_state):
     }
 
     if (raw_type in type_dict) and (type_dict[raw_type] == 'Investment') and (raw_state == 'Grąžinta'):
-        return 'Loan return'
+        return 'Loan decline'
     elif raw_type in type_dict:
         return type_dict[raw_type]
     else:
@@ -39,7 +39,7 @@ def parse_amount(raw_amount, inv_type):
     # the amount to 0 and effectively ignoring the event entirely.
     if inv_type == 'Investment':
         return "-" + raw_amount
-    elif inv_type == 'Loan return':
+    elif inv_type == 'Loan decline':
         return '0'
     else:
         return raw_amount
