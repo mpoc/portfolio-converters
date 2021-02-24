@@ -16,7 +16,8 @@ def parse_type(raw_type, raw_state):
         'Indėlis(Lemonway)': 'Deposit',
         'Partnerystė': 'Affiliate earnings',
         'Palūkanos': 'Interest',
-        'Pagrindinė suma': 'Loan return'
+        'Pagrindinė suma': 'Loan return',
+        'Kompensacija': 'Interest' # Could change to Late interest
     }
 
     if (raw_type in type_dict) and (type_dict[raw_type] == 'Investment') and (raw_state == 'Grąžinta'):
