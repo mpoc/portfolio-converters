@@ -25,6 +25,21 @@ def parse_type(raw_type):
         return sys.exit()
 
 def parse_name(raw_name, inv_type):
+    if inv_type == 'Deposit':
+        return 'Deposit'
+    else:
+        # Shitty csv cuts the names off, we need to account for that
+        name_dict = {
+            'Modern office in the business ...': 'Modern office in the business center of Tallinn',
+            'Rental property on Maiznicas s...': 'Rental property on Maiznicas street',
+            'Metropolis 4D development loan...': 'Metropolis 4D development loan - 4. stage',
+            'Bauskas development loan - 4. ...': 'Bauskas development loan - 4. stage',
+            'Loo, Niidu, Ristiku roads, Par...': 'Loo, Niidu, Ristiku roads, Parnu',
+            'Lvovo str. 11-32, Šnipiškės, V...': 'Lvovo str. 11-32, Šnipiškės, Vilnius'
+        }
+
+        return name_dict.get(raw_name, raw_name)
+
     return 'Deposit' if inv_type == 'Deposit' else raw_name
 
 def parse_amount(raw_amount, inv_type):
@@ -33,9 +48,9 @@ def parse_amount(raw_amount, inv_type):
 def process_event(event):
     delim = ';'
 
-    raw_date = event['Date']
+    raw_date = event['\ufeff"Date"'] # I shouldn't have to account for your shitty csv export...
     raw_name = event['Project']
-    raw_amount = event['Amount']
+    raw_amount = event['AMOUNT']
     raw_type = event['Type']
 
     inv_date = parse_date(raw_date)
