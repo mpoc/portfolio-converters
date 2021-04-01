@@ -79,6 +79,8 @@ def get_events():
         for row in reader:
             events.append(row)
 
+    events = events[:-5]
+
     return events
 
 events = get_events()
