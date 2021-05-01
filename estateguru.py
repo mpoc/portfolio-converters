@@ -12,20 +12,21 @@ def parse_date(date):
 
 def parse_type(raw_type, raw_state):
     type_dict = {
-        'Investicija': 'Investment',
-        'Indėlis(Lemonway)': 'Deposit',
-        'Partnerystė': 'Affiliate earnings',
-        'Palūkanos': 'Interest',
-        'Pagrindinė suma': 'Loan return',
-        'Kompensacija': 'Interest' # Could change to Late interest
+        ('Deposit', 'Approved'): 'Deposit',
+        ('Investment', 'Approved'): 'Investment',
+        ('Investment', 'Canceled'): 'Loan decline',
+        ('Investment', 'Returned'): 'Loan decline',
+        ('Interest', 'Approved'): 'Interest',
+        ('Indemnity', 'Approved'): 'Interest', # Could change to Late interest
+        ('Principal', 'Approved'): 'Loan return',
+        ('Referral', 'Approved'): 'Affiliate earnings'
     }
 
-    if (raw_type in type_dict) and (type_dict[raw_type] == 'Investment') and (raw_state == 'Grąžinta'):
-        return 'Loan decline'
-    elif raw_type in type_dict:
-        return type_dict[raw_type]
+    type_tuple = (raw_type, raw_state)
+    if type_tuple in type_dict:
+        return type_dict[type_tuple]
     else:
-        print('Could not map type ' + raw_type)
+        print('Could not map type ' + type_tuple)
         return sys.exit()
 
 def parse_name(raw_name, inv_type):
@@ -39,9 +40,7 @@ def parse_amount(raw_amount, inv_type):
     # transaction type is still investment. Ideally this would be edited to have
     # two separate events for investment and loan return instead of just setting
     # the amount to 0 and effectively ignoring the event entirely.
-    if inv_type == 'Investment':
-        return "-" + raw_amount
-    elif inv_type == 'Loan decline':
+    if inv_type == 'Loan decline':
         return '0'
     else:
         return raw_amount
@@ -49,18 +48,17 @@ def parse_amount(raw_amount, inv_type):
 def process_event(event):
     delim = ';'
 
-    raw_date = event['Patvirtinimo data']
-    raw_name = event['Projekto pavadinimas']
-    raw_amount = event['Suma']
-    raw_currency = event['Valiuta']
-    raw_type = event['Pinigų srauto tipas']
-    raw_state = event['Pinigų srauto būsena']
+    raw_date = event['Confirmation Date']
+    raw_name = event['Project Name']
+    raw_amount = event['Amount']
+    raw_type = event['Cash Flow Type']
+    raw_state = event['Cash Flow Status']
 
     inv_date = parse_date(raw_date)
     inv_type = parse_type(raw_type, raw_state)
     inv_name = parse_name(raw_name, inv_type)
     inv_amount = parse_amount(raw_amount, inv_type)
-    inv_currency = raw_currency
+    inv_currency = 'EUR'
     inv_platform = 'EstateGuru'
 
     inv_details = [
@@ -82,9 +80,7 @@ def get_events():
         for row in reader:
             events.append(row)
 
-    events = events[:-2]
-
-    return events
+    return reversed(events)
 
 events = get_events()
 processed_events = list(map(process_event, events))
