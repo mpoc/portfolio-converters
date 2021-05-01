@@ -81,11 +81,10 @@ def get_events():
 
     events = events[:-5]
 
-    return events
+    return reversed(events)
 
 events = get_events()
 processed_events = list(map(process_event, events))
-processed_events.reverse()
 
 for event in processed_events:
     print(event)
